@@ -4,16 +4,21 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/mux"
+	"github.com/kristutis/cloud-lab/internal/hashes"
 )
 
 func Sha256Handler(w http.ResponseWriter, r *http.Request) {
 	// to get the username, use the following:
-	// username := mux.Vars(r)["username"]
+	username := mux.Vars(r)["username"]
 
 	// to calculate sha256 hash of a string, use internal/hashes package and function GetHash i.e.: myhash, _ := hashes.GetHash("Sha256"
 
+	myHash, _ := hashes.GetHash("Sha256", username)
+
 	// to send the response, use the following:
-	// fmt.Fprint(w, hash)
+	fmt.Fprint(w, myHash)
 
 	w.WriteHeader(http.StatusOK)
 }
